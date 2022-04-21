@@ -7,7 +7,11 @@ public class Menu : MonoBehaviour
 {
     public void PlayGame()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(3);
+    }
+    public void PlayMultiPlayerGame()
+    {
+        //
     }
     public void QuitGame()
     {
