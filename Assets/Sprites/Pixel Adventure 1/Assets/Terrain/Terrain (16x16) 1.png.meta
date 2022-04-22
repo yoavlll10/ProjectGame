@@ -173,9 +173,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 98
-        y: 128
+        y: 129
         width: 44
-        height: 48
+        height: 46
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -277,7 +277,7 @@ TextureImporter:
       name: Terrain (16x16) 1_6
       rect:
         serializedVersion: 2
-        x: 0
+        x: 39
         y: 73
         width: 9
         height: 30
@@ -403,9 +403,9 @@ TextureImporter:
       name: Terrain (16x16) 1_12
       rect:
         serializedVersion: 2
-        x: 192
+        x: 240
         y: 0
-        width: 64
+        width: 16
         height: 48
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -445,7 +445,7 @@ TextureImporter:
       name: Terrain (16x16) 1_14
       rect:
         serializedVersion: 2
-        x: 0
+        x: 39
         y: 103
         width: 9
         height: 9

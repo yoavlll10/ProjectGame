@@ -1,4 +1,5 @@
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -11,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     private BoxCollider2D boxCollider;
     private float wallJumpCooldown;
     private float horizontalInput;
+    PhotonView view;
 
     private void Awake()
     {
@@ -18,11 +20,12 @@ public class PlayerMovement : MonoBehaviour
         body = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         boxCollider = GetComponent<BoxCollider2D>();
-        
+        view = GetComponent<PhotonView>();
     }
 
     private void Update()
     {
+        
         horizontalInput = Input.GetAxis("Horizontal");
         //body.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
 
@@ -34,27 +37,27 @@ public class PlayerMovement : MonoBehaviour
 
         //if (Input.GetKey(KeyCode.UpArrow) && isGrounded())
         //    Jump();
-            
+
 
         //Set animator parameters
         anim.SetBool("run", horizontalInput != 0);
         anim.SetBool("grounded", isGrounded());
-
+    
         //Wall jump logic
-        if(wallJumpCooldown < 0.2f)//>>>>>>
+        if (wallJumpCooldown < 0.2f)//>>>>>>
         {
-            
+
 
             body.velocity = new Vector2(Input.GetAxis("Horizontal") * speed, body.velocity.y);
 
-            if(onWall() && !isGrounded())
+            if (onWall() && !isGrounded())
             {
                 body.gravityScale = 0;
                 body.velocity = Vector2.zero;
             }
             else
                 body.gravityScale = 1;
-            
+
             if (Input.GetKey(KeyCode.UpArrow)/* && isGrounded()*/)
                 Jump();
 
@@ -63,27 +66,31 @@ public class PlayerMovement : MonoBehaviour
         {
             wallJumpCooldown += Time.deltaTime;
         }
+        
     }
     private void Jump()
     {
-        if (isGrounded())
-        {
-            body.velocity = new Vector2(body.velocity.x, jumpSpeed);
-            anim.SetTrigger("jump");
-            //grounded = false;
-        }
-        else if (onWall() && !isGrounded())
-        {
-            if(horizontalInput == 0)
+        
+            if (isGrounded())
             {
-                body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 10, 0);
-                transform.localScale = new Vector3(-Mathf.Sign(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                body.velocity = new Vector2(body.velocity.x, jumpSpeed);
+                anim.SetTrigger("jump");
+                //grounded = false;
             }
-            else
-                body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 3, 6);
+            else if (onWall() && !isGrounded())
+            {
+                if (horizontalInput == 0)
+                {
+                    body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 10, 0);
+                    transform.localScale = new Vector3(-Mathf.Sign(transform.localScale.x), transform.localScale.y, transform.localScale.z);
+                }
+                else
+                    body.velocity = new Vector2(-Mathf.Sign(transform.localScale.x) * 3, 6);
 
-            wallJumpCooldown = 0;
-        }
+                wallJumpCooldown = 0;
+            }
+        
+        
 
     }
 
